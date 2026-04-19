@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>生日祝福</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 100vh;
+            background: linear-gradient(#FF69B4 0%, #EE82EE 100%);
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .black{
+            background-image: url('2026_04_19_10_56_06_264847.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 1500px;
+            height: 1200px;
+            object-fit: cover;
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            border-radius: 3%;
+
+        }
+        .card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            height: 800px;
+            padding: 40px;
+            max-width: 600px;
+            margin-top: 100px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: fadeIn 3s;
+
+
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        h1 {
+            color: #764ba2;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 20px auto;
+            border: 5px solid #667eea;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .message {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            margin: 30px 0;
+            text-align: left;
+        }
+        .birthday-cake {
+            font-size: 60px;
+            animation: bounce 0.4s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-80px); }
+        }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: scale(1.05);
+        }
+        audio {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="black">
+        <audio id="audioPlayer" loop>
+            <source src="09%20-%20City%20of%20Tears.mp3" type="audio/mpeg">
+        </audio>
+        <div class="card">
+            <div class="birthday-cake">🎂</div>
+            <h1> 生日快乐！</h1>
+
+            <img src="./63f2e07ada35c80f3b9f8eefde6cffca.jpg" alt="照片" class="photo">
+
+            <div class="message">
+                <p>亲爱的朋友，</p>
+                <p>🎉 祝你生日快乐！🎉</p>
+                <p>春花秋月何时了，</p>
+                <p>不知往事，且看前路</p>
+                <p>行人漫漫，影影绰绰</p>
+                <p>相信未来更美好</p>
+                <p style="text-align: right; margin-top: 20px;">—— 你的好朋友</p>
+            </div>
+
+            <button onclick="playMusic()">🎵 播放生日歌 🎵</button>
+            <audio id="bgMusic" loop>
+                <source src="生日快乐(完整版)_爱给网_aigei_com.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+
+    </div>
+
+    <script>
+
+
+        let isPlaying = false;
+        const audio = document.getElementById('bgMusic');
+        const backbgm = document.getElementById('audioPlayer');
+        backbgm.volume = 0.35;
+        function bgm(){
+             backbgm.play();
+        }
+        setTimeout(bgm);
+        function playMusic() {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                backbgm.play();
+                event.target.textContent = '🎵 播放生日歌 🎵';
+
+            } else {
+                audio.play();
+                isPlaying = true;
+                event.target.textContent = '⏸️ 暂停音乐 ⏸️';
+                backbgm.pause();
+            }
+        }
+
+        // 添加彩带效果
+        function createConfetti() {
+            for(let i = 0; i < 50; i++) {
+                let confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.top = '-10px';
+                confetti.style.pointerEvents = 'none';
+                document.body.appendChild(confetti);
+
+                let animation = confetti.animate([
+                    { transform: 'translateY(0px) rotate(0deg)', opacity: 1 },
+                    { transform: `translateY(${window.innerHeight + 20}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], {
+                    duration: 2000 + Math.random() * 1000,
+                    easing: 'linear'
+                });
+
+                animation.onfinish = () => confetti.remove();
+            }
+        }
+
+        // 页面加载时播放彩带
+        setTimeout(createConfetti, 500);
+    </script>
+</body>
+</html>
